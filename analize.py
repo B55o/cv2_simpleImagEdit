@@ -35,8 +35,8 @@ def funcMedian(file):
 	cv2.imwrite(f"res_{file}_median.jpg", median)
 
 
-funcErode("Zadanie 2f.tif")
-funcBinary("Zadanie 2f.tif")
-funcDilate("Zadanie 2f.tif")
-funcBoxFilter("Zadanie 2f.tif")
-funcMedian("Zadanie 2f.tif")
+# funcErode()
+# funcBinary()
+# funcDilate()
+# funcBoxFilter()
+# funcMedian()
