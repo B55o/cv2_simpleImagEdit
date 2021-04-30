@@ -1,42 +1,42 @@
-import cv2
-import numpy as np
+from src.functions import funcErode, funcBinary, funcDilate, funcBoxFilter, funcMedian
 
+how_many_pic = input("how many pictures you want to analyse: ")
+all_pics = []
+for i in range(0, int(how_many_pic)):
+	pic = input("if pic is in the same dir only name is necessary, if not full path is a must: ")
+	if pic.find(".jpg") > 0:
+		all_pics.append(pic)
+	elif pic.find(".png") > 0:
+		all_pics.append(pic)
+	elif pic.find(".tif") > 0:
+		all_pics.append(pic)
+	else:
+		print("your file format is not supported...")
+print(all_pics)
 
-def funcErode(file):
-	img = cv2.imread(file)
-	kernel = np.ones((5, 5), np.uint8)
-	erode = cv2.erode(img, kernel)
-	cv2.imwrite(f"res_{file}_erode.jpg", erode)
+print("first operation you want to execute: ")
+more = True
+while more:
+	operation_name = int(input("\n1 - Erode\n2 - Binary\n3 - Dilate\n4 - BoxFilter\n5 - Median\n"))
+	while operation_name < 1 or operation_name > 5:
+		print(f"{operation_name} this number is out of range.. ")
+		operation_name = int(input("\n1 - Erode\n2 - Binary\n3 - Dilate\n4 - BoxFilter\n5 - Median\n"))
+	if operation_name == 1:
+		for pic in all_pics:
+			funcErode(pic)
+	elif operation_name == 2:
+		for pic in all_pics:
+			funcBinary(pic)
+	elif operation_name == 3:
+		for pic in all_pics:
+			funcDilate(pic)
+	elif operation_name == 4:
+		for pic in all_pics:
+			funcBoxFilter(pic)
+	elif operation_name == 5:
+		for pic in all_pics:
+			funcMedian(pic)
 
-
-def funcBinary(file):
-	img = cv2.imread(file)
-	grey_image = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
-	_, threshold_image = cv2.threshold(grey_image, 125, 255, cv2.THRESH_BINARY)
-	cv2.imwrite(f"res_{file}_binary.jpg", threshold_image)
-
-
-def funcDilate(file):
-	img = cv2.imread(file)
-	kernel = np.ones((5, 5), np.uint8)
-	dilate = cv2.dilate(img, kernel)
-	cv2.imwrite(f"res_{file}_dilate.jpg", dilate)
-
-
-def funcBoxFilter(file):
-	img = cv2.imread(file)
-	boxFilter = cv2.boxFilter(img, -1, (5, 5))
-	cv2.imwrite(f"res_{file}_Box_filter.jpg", boxFilter)
-
-
-def funcMedian(file):
-	img = cv2.imread(file)
-	median = cv2.medianBlur(img, 5)
-	cv2.imwrite(f"res_{file}_median.jpg", median)
-
-
-# funcErode()
-# funcBinary()
-# funcDilate()
-# funcBoxFilter()
-# funcMedian()
+	count = input("You want execute more operations? y/n\n")
+	if count != "y":
+		break
