@@ -1,17 +1,26 @@
+import os
+from os import path
 from src.functions import funcErode, funcBinary, funcDilate, funcBoxFilter, funcMedian
 
 how_many_pic = input("how many pictures you want to analyse: ")
 all_pics = []
 for i in range(0, int(how_many_pic)):
-	pic = input("if pic is in the same dir only name is necessary, if not full path is a must: ")
-	if pic.find(".jpg") > 0:
-		all_pics.append(pic)
-	elif pic.find(".png") > 0:
-		all_pics.append(pic)
-	elif pic.find(".tif") > 0:
-		all_pics.append(pic)
+	pic = input("directory of file you want to edit: ")
+	while not os.path.isfile(pic):
+		pic = input("there is no such directory or file, try another: ")
+		print(pic)
 	else:
-		print("your file format is not supported...")
+		if pic.find(".jpg") > 0:
+			all_pics.append(pic)
+		elif pic.find(".png") > 0:
+			all_pics.append(pic)
+		elif pic.find(".tif") > 0:
+			all_pics.append(pic)
+		elif pic.find(".jfif") > 0:
+			all_pics.append(pic)
+		else:
+			print("your file format is not supported...")
+
 print(all_pics)
 
 print("first operation you want to execute: ")
@@ -37,6 +46,6 @@ while more:
 		for pic in all_pics:
 			funcMedian(pic)
 
-	count = input("You want execute more operations? y/n\n")
+	count = input("You want to try more operations? y/n\n")
 	if count != "y":
 		break
